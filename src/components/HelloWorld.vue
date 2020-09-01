@@ -118,6 +118,9 @@ input[type="text"] {
   padding: 10px 10px 10px 130px;
   transition: all 0.1s ease-out;
 }
+input[type="text"]:focus {
+  color: rgb(82, 81, 81);
+}
 input[type="text"] + label {
   position: absolute;
   top: 30;
@@ -159,6 +162,7 @@ input[type="text"]:focus {
   background: #e0e6ec;
   box-shadow: 7px 7px 14px #bec4c9, -7px -7px 14px #ffffff;
   cursor: pointer;
+  transition: all 0.1s;
 }
 button:focus {
   outline: 0;
@@ -166,7 +170,6 @@ button:focus {
 .addButton:active {
   box-shadow: none;
   position: relative;
-  top: 5px;
 }
 main {
   margin-top: 20px;
