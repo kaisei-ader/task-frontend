@@ -2,10 +2,16 @@
   <div class="hello">
     <div class="textErea">
       <div class="textInput">
-        <input type="text" id="input1" v-model="todo" placeholder="Please enter the text !!" />
+        <input
+          type="text"
+          id="input1"
+          v-model="todo"
+          @keypress.enter="onEnterPress"
+          placeholder="Please enter the text !!"
+        />
         <label for="input1">To Do text</label>
       </div>
-      <button @click="add" class="addButton">Add</button>
+      <button @click="add" id="addButton">Add</button>
     </div>
     <main>
       <div class="mainBox">
@@ -23,48 +29,40 @@
         </div>
       </div>
     </main>
-    <section class="pomodoro">
-      <div class="timebox">
-        <div class="inbox">
-          <p>
-            2 5 : 0 0
-            <br />
-            <span>session</span>
-          </p>
-        </div>
-      </div>
-      <div class="timeButtonWrap">
-        <button>?</button>
-        <button class="startButton">
-          <font-awesome-icon :icon="['fas', 'play-circle']" class="start" />
-        </button>
-        <button class="resetButton">
-          <font-awesome-icon :icon="['fas', 'redo-alt']" class="reset" />
-        </button>
-      </div>
-    </section>
+    <Pomodoro />
   </div>
 </template>
 
 <script>
+import $ from "jquery";
+import Pomodoro from "@/components/Pomodoro";
 export default {
   name: "HelloWorld",
+  components: {
+    Pomodoro,
+  },
   data() {
     return {
       todo: "",
       todos: [],
+      addButton: "addButton",
     };
   },
   methods: {
     add() {
       if (this.todo !== "") {
         this.todos.push({ name: this.todo, finish: false });
-        console.log(this.todos);
         this.todo = "";
       }
     },
     remove(index) {
       this.todos = this.todos.filter((v, i) => i !== index);
+    },
+    onEnterPress() {
+      this.add();
+      $("#addButton").addClass("active");
+      setTimeout(() => $("#addButton").removeClass("active"), 100);
+      $("#input1").blur();
     },
   },
 };
@@ -128,7 +126,7 @@ input[type="text"] + label {
   bottom: 0;
   height: 40px;
   line-height: 40px;
-  color: rgb(82, 81, 81);
+  color: rgb(194, 71, 71);
   border-radius: 59px;
   border: 1px double #eee;
   color: #484b57;
@@ -143,16 +141,15 @@ input[type="text"] + label {
 }
 input[type="text"]:focus + label {
   transform: translateY(-120%) translateX(0%);
-  border-radius: 3px;
+  border-radius: 59px;
   transition: all 0.1s ease-out;
 }
 
 input[type="text"]:focus {
   padding: 10px;
   transition: all 0.3s ease-out;
-  transition-delay: 0.2s;
 }
-.addButton {
+#addButton {
   margin-top: 20px;
   padding: 10px 100px;
   border-radius: 20px;
@@ -167,7 +164,8 @@ input[type="text"]:focus {
 button:focus {
   outline: 0;
 }
-.addButton:active {
+#addButton.active,
+#addButton:active {
   box-shadow: none;
   position: relative;
 }
@@ -268,89 +266,5 @@ input[type="checkbox"]:checked + label:before {
 label:before {
   position: absolute;
   top: 10px;
-}
-.pomodoro {
-  position: absolute;
-  top: 100px;
-  left: 990px;
-}
-.timebox {
-  position: relative;
-  width: 300px;
-  height: 300px;
-  margin: 0 auto;
-  background: #e0e6ec;
-  box-shadow: 7px 7px 14px #bec4c9, -7px -7px 14px #ffffff;
-  border-radius: 50%;
-  text-align: center;
-}
-.inbox {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  width: 250px;
-  height: 250px;
-  border-radius: 50%;
-  background: #e0e6ec;
-  box-shadow: inset 5px 5px 21px #9da1a5, inset -5px -5px 21px #ffffff;
-  font-size: 55px;
-  text-align: center;
-}
-.inbox p {
-  margin-top: 94px;
-  font-family: "Lora", serif;
-  font-family: "Comfortaa", cursive;
-  font-weight: 800;
-  color: rgb(82, 81, 81);
-}
-.inbox span {
-  display: block;
-  margin-top: 10px;
-  font-size: 23px;
-  font-weight: 700;
-  font-family: "Comfortaa", cursive;
-}
-.startButton {
-  width: 70px;
-  height: 70px;
-  border: none;
-  cursor: pointer;
-  outline: none;
-  padding: 0;
-  background: #e0e6ec;
-  box-shadow: 7px 7px 14px #bec4c9, -7px -7px 14px #ffffff;
-  border-radius: 50%;
-}
-.start {
-  font-size: 50px;
-  color: rgb(82, 81, 81);
-  color: #686b9f;
-  font-weight: 800;
-  background: #e0e6ec;
-  border-radius: 50%;
-  box-shadow: 7px 7px 14px #bec4c9, -7px -7px 14px #ffffff;
-}
-.resetButton {
-  width: 70px;
-  height: 70px;
-  border: none;
-  cursor: pointer;
-  outline: none;
-  padding: 0;
-  background: #e0e6ec;
-  box-shadow: 7px 7px 14px #bec4c9, -7px -7px 14px #ffffff;
-  border-radius: 50%;
-}
-.reset {
-  font-size: 50px;
-  color: rgb(82, 81, 81);
-  color: #686b9f;
-  font-weight: 800;
-  background: #e0e6ec;
-  border-radius: 50%;
-  box-shadow: 7px 7px 14px #bec4c9, -7px -7px 14px #ffffff;
 }
 </style>
