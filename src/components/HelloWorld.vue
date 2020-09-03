@@ -21,7 +21,7 @@
             type="checkbox"
             :id="'todo-'+index"
             @change="todo.finish = !todo.finish"
-            class="mainCheck"
+            :class="{'checked':todo.finish}"
           />
           <label :class="{'finish':todo.finish}" :for="'todo-'+index" class="mainText">{{todo.name}}</label>
           <button @click="() => remove(index)" class="mainDelate">
@@ -58,11 +58,12 @@ export default {
     },
     remove(index) {
       this.todos = this.todos.filter((v, i) => i !== index);
-      $("#addButton").addClass("active");
     },
     onEnterPress() {
       this.add();
-      // $(".input[type="checkbox"]:checked + label:before").checed = false;
+      $("#addButton").addClass("active");
+      setTimeout(() => $("#addButton").removeClass("active"), 100);
+      $("#input1").blur();
     },
   },
 };
@@ -258,7 +259,7 @@ input[type="checkbox"] + label:before {
   -webkit-transition: all 0.12s, border-color 0.08s;
   transition: all 0.12s, border-color 0.08s;
 }
-input[type="checkbox"]:checked + label:before {
+input[type="checkbox"].checked + label:before {
   width: 8px;
   top: 16px;
   left: 27px;

@@ -104,7 +104,7 @@ export default {
     },
   },
 };
-</script>ｓ
+</script>
 
 <style scoped>
 .pomodoro {
