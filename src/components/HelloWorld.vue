@@ -1,19 +1,20 @@
 <template>
   <div class="hello">
-    <div class="textErea">
-      <div class="textInput">
-        <input
-          type="text"
-          id="input1"
-          v-model="todo"
-          @keypress.enter="onEnterPress"
-          placeholder="Please enter the text !!"
-        />
-        <label for="input1">To Do text</label>
+    <div class="todoErea">
+      <div class="textErea">
+        <div class="textInput">
+          <input
+            type="text"
+            id="input1"
+            v-model="todo"
+            @keypress.enter="onEnterPress"
+            placeholder="Please enter the text !!"
+          />
+          <label for="input1">To Do text</label>
+          <button @click="add" id="addButton">Add</button>
+        </div>
       </div>
-      <button @click="add" id="addButton">Add</button>
-    </div>
-    <main>
+
       <div class="mainBox">
         <div v-for="(todo, index) in todos" :key="index" class="mainWrap">
           <input
@@ -28,7 +29,7 @@
           </button>
         </div>
       </div>
-    </main>
+    </div>
     <Pomodoro />
   </div>
 </template>
@@ -82,7 +83,11 @@ export default {
   background: #e0e6ec;
   padding-top: 100px;
   box-sizing: border-box;
-  position: relative;
+  display: flex;
+  justify-content: space-between;
+}
+.todoErea {
+  width: 70%;
 }
 * {
   font-family: "Noto Serif JP", serif;
@@ -94,15 +99,17 @@ export default {
 .textErea {
   width: 70%;
   height: 150px;
-  margin-left: 190px;
+  margin-left: 20%;
   border-radius: 59px;
 }
 .textInput {
   position: relative;
 }
 input[type="text"] {
-  display: inline-block;
-  width: 500px;
+  position: absolute;
+  top: 8px;
+  left: 3%;
+  width: 600px;
   height: 40px;
   margin-top: 30px;
   font-size: 23px;
@@ -121,9 +128,8 @@ input[type="text"]:focus {
 }
 input[type="text"] + label {
   position: absolute;
-  top: 30;
-  left: 221px;
-  bottom: 0;
+  top: 35px;
+  left: 3%;
   height: 40px;
   line-height: 40px;
   color: rgb(194, 71, 71);
@@ -150,7 +156,9 @@ input[type="text"]:focus {
   transition: all 0.3s ease-out;
 }
 #addButton {
-  margin-top: 20px;
+  position: absolute;
+  top: 102px;
+  left: 200px;
   padding: 10px 100px;
   border-radius: 20px;
   border: none;
@@ -167,15 +175,14 @@ button:focus {
 #addButton.active,
 #addButton:active {
   box-shadow: none;
-  position: relative;
 }
 main {
   margin-top: 20px;
-  margin-left: 400px;
 }
 .mainBox {
-  width: 690px;
+  width: 750px;
   height: 370px;
+  margin-left: 9%;
   overflow-y: auto;
   overflow-x: hidden;
   border-radius: 30px;
@@ -188,9 +195,9 @@ main {
 }
 .mainWrap {
   position: relative;
-  width: 440px;
+  width: 580px;
   margin-top: 20px;
-  margin-left: 15px;
+  margin-left: 13%;
   border-radius: 20px;
   padding: 20px 30px;
   display: flex;
@@ -203,7 +210,7 @@ main {
 .mainDelate {
   position: absolute;
   top: 18px;
-  left: 260px;
+  left: 390px;
   background-color: transparent;
   border: none;
   cursor: pointer;

@@ -57,11 +57,6 @@ export default {
   },
   methods: {
     count() {
-      $(".svganime").css(
-        "stroke-dasharray",
-        565 * (1 - (this.min * 60 + this.sec) / (this.work ? 1500 : 300)) +
-          " 565"
-      );
       if (this.min === 0) {
         if (this.sec === 0) {
           if (this.work) {
@@ -79,6 +74,11 @@ export default {
       } else {
         this.sec--;
       }
+      $(".svganime").css(
+        "stroke-dasharray",
+        565 * (1 - (this.min * 60 + this.sec) / (this.work ? 1500 : 300)) +
+          " 565"
+      );
     },
 
     start() {
@@ -108,9 +108,9 @@ export default {
 
 <style scoped>
 .pomodoro {
-  position: absolute;
-  top: 100px;
-  left: 990px;
+  width: 30%;
+  margin-right: 4%;
+  margin-top: 2%;
 }
 .timebox {
   position: relative;
@@ -153,9 +153,14 @@ export default {
 }
 .timeButtonWrap {
   display: flex;
+  justify-content: space-around;
+  width: 300px;
+  height: 100px;
   text-align: center;
   margin-top: 120px;
   margin-left: 10px;
+  margin: 0 auto;
+  margin-top: 100px;
 }
 .pomodoro-button {
   width: 70px;
