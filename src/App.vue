@@ -58,4 +58,12 @@ header {
   margin-top: 15px;
   color: rgb(82, 81, 81);
 }
+@media screen and (max-width: 480px) {
+  .headerWrap {
+    height: 55px;
+  }
+  .headerWrap h1 {
+    font-size: 19px;
+  }
+}
 </style>

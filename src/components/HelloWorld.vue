@@ -157,7 +157,7 @@ input[type="text"]:focus {
 }
 #addButton {
   position: absolute;
-  top: 102px;
+  top: 101px;
   left: 200px;
   padding: 10px 100px;
   border-radius: 20px;
@@ -273,5 +273,67 @@ input[type="checkbox"].checked + label:before {
 label:before {
   position: absolute;
   top: 10px;
+}
+@media screen and (max-width: 480px) {
+  .hello {
+    display: block;
+    height: 100%;
+  }
+  .todoErea {
+    width: 100%;
+  }
+  .textErea {
+    width: 100%;
+    margin-left: 0px;
+  }
+  .mainBox {
+    width: 80%;
+    height: 400px;
+    margin: 0 auto;
+    margin-bottom: 100px;
+  }
+  .mainWrap {
+    position: relative;
+    width: 80%;
+    margin-top: 27px;
+    margin-left: 5px;
+    border-radius: 20px;
+    padding: 20px 30px;
+    display: flex;
+    background: #e0e6ec;
+    box-shadow: 7px 7px 14px #bec4c9, -7px -7px 14px #ffffff;
+  }
+  .textInput[data-v-469af010] {
+    position: relative;
+    width: 100%;
+  }
+  input[type="text"][data-v-469af010] {
+    position: absolute;
+    top: 8px;
+    left: 0;
+    width: 100%;
+    margin-top: 10px;
+    box-sizing: border-box;
+  }
+  #addButton[data-v-469af010] {
+    position: absolute;
+    top: 88px;
+    left: 100px;
+    padding: 10px 100px;
+  }
+  input[type="checkbox"] + label[data-v-469af010] {
+    display: block;
+    margin-left: 28px;
+    font: 15px/20px "Open Sans", Arial, sans-serif;
+  }
+  input[type="text"] + label[data-v-469af010] {
+    position: absolute;
+    top: 15px;
+    left: 0;
+  }
+  .mainDelate {
+    left: 0px;
+    margin-left: 80%;
+  }
 }
 </style>

@@ -84,7 +84,7 @@ export default {
     start() {
       this.timerObj = setInterval(() => {
         this.count();
-      }, 1000);
+      }, 10);
       this.timerOn = true;
     },
     stop() {
@@ -226,4 +226,9 @@ export default {
     stroke-dasharray: 723 723;
   }
 } */
+@media screen and (max-width: 480px) {
+  .pomodoro {
+    width: 100%;
+  }
+}
 </style>
