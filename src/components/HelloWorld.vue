@@ -58,12 +58,11 @@ export default {
     },
     remove(index) {
       this.todos = this.todos.filter((v, i) => i !== index);
+      $("#addButton").addClass("active");
     },
     onEnterPress() {
       this.add();
-      $("#addButton").addClass("active");
-      setTimeout(() => $("#addButton").removeClass("active"), 100);
-      $("#input1").blur();
+      // $(".input[type="checkbox"]:checked + label:before").checed = false;
     },
   },
 };
