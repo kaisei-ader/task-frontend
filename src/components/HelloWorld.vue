@@ -59,14 +59,15 @@ export default {
   },
   methods: {
     get() {
-      axios.get("http://localhost:8001/api/task").then((res) => {
+      console.log(process.env);
+      axios.get(process.env.VUE_APP_API_URL + "/api/task").then((res) => {
         this.todos = res.data;
       });
     },
     add() {
       if (this.todo !== "") {
         axios
-          .post("http://localhost:8001/api/task", { name: this.todo })
+          .post(process.env.VUE_APP_API_URL + "/api/task", { name: this.todo })
           .then(() => {
             this.get();
           });
@@ -74,13 +75,13 @@ export default {
       }
     },
     remove(id) {
-      axios.delete("http://localhost:8001/api/task/" + id).then(() => {
+      axios.delete(process.env.VUE_APP_API_URL + "/api/task/" + id).then(() => {
         this.get();
       });
     },
 
     updateStatus(id, isFinished) {
-      axios.patch("http://localhost:8001/api/task/" + id, {
+      axios.patch(process.env.VUE_APP_API_URL + "/api/task/" + id, {
         key: "is_finished",
         value: isFinished,
       });
