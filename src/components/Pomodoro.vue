@@ -84,7 +84,7 @@ export default {
     start() {
       this.timerObj = setInterval(() => {
         this.count();
-      }, 10);
+      }, 1000);
       this.timerOn = true;
     },
     stop() {
@@ -106,11 +106,17 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap");
+
 .pomodoro {
   width: 30%;
   margin-right: 4%;
   margin-top: 2%;
+
+  @media screen and(max-width: 480px) {
+    width: 100%;
+  }
 }
 .timebox {
   position: relative;
@@ -121,35 +127,36 @@ export default {
   box-shadow: 7px 7px 14px #bec4c9, -7px -7px 14px #ffffff;
   border-radius: 50%;
   text-align: center;
-}
-.inbox {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  width: 250px;
-  height: 250px;
-  border-radius: 50%;
-  background: #e0e6ec;
-  box-shadow: inset 7px 7px 14px #bec4c9, inset -7px -7px 14px #ffffff;
-  font-size: 55px;
-  text-align: center;
-}
-.inbox p {
-  margin-top: 94px;
-  font-family: "Lora", serif;
-  font-family: "Comfortaa", cursive;
-  font-weight: 800;
-  color: rgb(82, 81, 81);
-}
-.inbox span {
-  display: block;
-  margin-top: 10px;
-  font-size: 23px;
-  font-weight: 700;
-  font-family: "Comfortaa", cursive;
+
+  .inbox {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background: #e0e6ec;
+    box-shadow: inset 7px 7px 14px #bec4c9, inset -7px -7px 14px #ffffff;
+    font-size: 55px;
+    text-align: center;
+  }
+  .inbox p {
+    margin-top: 94px;
+    font-family: "Lora", serif;
+    font-family: "Comfortaa", cursive;
+    font-weight: 800;
+    color: rgb(82, 81, 81);
+  }
+  .inbox span {
+    display: block;
+    margin-top: 10px;
+    font-size: 23px;
+    font-weight: 700;
+    font-family: "Comfortaa", cursive;
+  }
 }
 .timeButtonWrap {
   display: flex;

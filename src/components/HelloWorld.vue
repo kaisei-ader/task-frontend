@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
-    <div class="todoErea">
-      <div class="textErea">
+    <div class="todoArea">
+      <div class="textArea">
         <div class="textInput">
           <input
             type="text"
@@ -14,18 +14,22 @@
           <button @click="add" id="addButton">Add</button>
         </div>
       </div>
-
       <div class="mainBox">
-        <div v-for="(todo, index) in todos" :key="index" class="mainWrap">
+        <div v-for="todo in todos" :key="todo.id" class="mainWrap">
           <input
             type="checkbox"
-            :id="'todo-'+index"
-            @change="todo.finish = !todo.finish"
-            :class="{'checked':todo.finish}"
+            :id="'todo-'+todo.id"
+            @change="() =>updateStatus(todo.id,todo.is_finished)"
+            v-model="todo.is_finished"
+            :class="{'checked':todo.is_finished}"
           />
-          <label :class="{'finish':todo.finish}" :for="'todo-'+index" class="mainText">{{todo.name}}</label>
-          <button @click="() => remove(index)" class="mainDelate">
-            <font-awesome-icon :icon="['far', 'trash-alt']" class="garbege" />
+          <label
+            :class="{'finish':todo.is_finished}"
+            :for="'todo-'+todo.id"
+            class="mainText"
+          >{{todo.name}}</label>
+          <button @click="() => remove(todo.id)" class="mainDelete">
+            <font-awesome-icon :icon="['far', 'trash-alt']" class="garbage" />
           </button>
         </div>
       </div>
@@ -36,6 +40,7 @@
 
 <script>
 import $ from "jquery";
+import axios from "axios";
 import Pomodoro from "@/components/Pomodoro";
 export default {
   name: "HelloWorld",
@@ -49,16 +54,38 @@ export default {
       addButton: "addButton",
     };
   },
+  created() {
+    this.get();
+  },
   methods: {
+    get() {
+      axios.get("http://localhost:8001/api/task").then((res) => {
+        this.todos = res.data;
+      });
+    },
     add() {
       if (this.todo !== "") {
-        this.todos.push({ name: this.todo, finish: false });
+        axios
+          .post("http://localhost:8001/api/task", { name: this.todo })
+          .then(() => {
+            this.get();
+          });
         this.todo = "";
       }
     },
-    remove(index) {
-      this.todos = this.todos.filter((v, i) => i !== index);
+    remove(id) {
+      axios.delete("http://localhost:8001/api/task/" + id).then(() => {
+        this.get();
+      });
     },
+
+    updateStatus(id, isFinished) {
+      axios.patch("http://localhost:8001/api/task/" + id, {
+        key: "is_finished",
+        value: isFinished,
+      });
+    },
+
     onEnterPress() {
       this.add();
       $("#addButton").addClass("active");
@@ -70,13 +97,13 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Sawarabi+Mincho&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400&display=swap");
+<style scoped lang="scss">
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500;900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,400;1,700&display=swap");
+
+* {
+  font-family: "Noto Sans JP", sans-serif;
+}
+
 .hello {
   width: 100%;
   height: 100vh;
@@ -85,22 +112,34 @@ export default {
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
+
+  @media screen and(max-width: 480px) {
+    display: block;
+    height: 100%;
+  }
 }
-.todoErea {
+
+.todoArea {
   width: 70%;
+
+  @media screen and(max-width: 480px) {
+    width: 100%;
+  }
 }
-* {
-  font-family: "Noto Serif JP", serif;
-  font-family: "Noto Sans JP", sans-serif;
-}
+
 .finish {
   text-decoration: line-through;
 }
-.textErea {
+
+.textArea {
   width: 70%;
   height: 150px;
   margin-left: 20%;
   border-radius: 59px;
+  @media screen and(max-width: 480px) {
+    width: 100%;
+    margin-left: 0;
+  }
 }
 .textInput {
   position: relative;
@@ -122,43 +161,52 @@ input[type="text"] {
   box-shadow: 7px 7px 14px #bec4c9, -7px -7px 14px #ffffff;
   padding: 10px 10px 10px 130px;
   transition: all 0.1s ease-out;
-}
-input[type="text"]:focus {
-  color: rgb(82, 81, 81);
-}
-input[type="text"] + label {
-  position: absolute;
-  top: 35px;
-  left: 3%;
-  height: 40px;
-  line-height: 40px;
-  color: rgb(194, 71, 71);
-  border-radius: 59px;
-  border: 1px double #eee;
-  color: #484b57;
-  text-shadow: 1px 1px 1px #fff;
-  padding: 0 20px;
-  font-weight: 600;
-  background: #e0e6ec;
-  box-shadow: 7px 7px 14px #bec4c9, -7px -7px 14px #ffffff;
-  transform: translateZ(0) translateX(0);
-  transition: all 0.3s ease-in;
-  transition-delay: 0.2s;
-}
-input[type="text"]:focus + label {
-  transform: translateY(-120%) translateX(0%);
-  border-radius: 59px;
-  transition: all 0.1s ease-out;
-}
-
-input[type="text"]:focus {
-  padding: 10px;
-  transition: all 0.3s ease-out;
+  &:focus {
+    color: rgb(82, 81, 81);
+    padding: 10px;
+    transition: all 0.3s ease-out;
+  }
+  & + label {
+    position: absolute;
+    top: 35px;
+    left: 3%;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 59px;
+    border: 1px double #eee;
+    color: #484b57;
+    text-shadow: 1px 1px 1px #fff;
+    padding: 0 20px;
+    font-weight: 600;
+    background: #e0e6ec;
+    box-shadow: 7px 7px 14px #bec4c9, -7px -7px 14px #ffffff;
+    transform: translateZ(0) translateX(0);
+    transition: all 0.3s ease-in;
+    transition-delay: 0.2s;
+    @media screen and(max-width:480px) {
+      position: absolute;
+      top: 15px;
+      left: 0;
+    }
+  }
+  &:focus + label {
+    transform: translateY(-120%) translateX(0%);
+    border-radius: 59px;
+    transition: all 0.1s ease-out;
+  }
+  @media screen and(max-width: 480px) {
+    position: absolute;
+    top: 8px;
+    left: 0;
+    width: 100%;
+    margin-top: 10px;
+    box-sizing: border-box;
+  }
 }
 #addButton {
   position: absolute;
   top: 101px;
-  left: 200px;
+  left: 30%;
   padding: 10px 100px;
   border-radius: 20px;
   border: none;
@@ -168,16 +216,20 @@ input[type="text"]:focus {
   box-shadow: 7px 7px 14px #bec4c9, -7px -7px 14px #ffffff;
   cursor: pointer;
   transition: all 0.1s;
-}
-button:focus {
-  outline: 0;
-}
-#addButton.active,
-#addButton:active {
-  box-shadow: none;
-}
-main {
-  margin-top: 20px;
+  &:focus {
+    outline: 0;
+  }
+  &:active,
+  &.active {
+    outline: 0;
+    box-shadow: none;
+  }
+  @media screen and(max-width: 480px) {
+    position: absolute;
+    top: 88px;
+    left: 100px;
+    padding: 10px 100px;
+  }
 }
 .mainBox {
   width: 750px;
@@ -188,10 +240,16 @@ main {
   border-radius: 30px;
   -ms-overflow-style: none; /* IE, Edge 対応 */
   scrollbar-width: none; /* Firefox 対応 */
-}
-.mainBox::-webkit-scrollbar {
-  /* Chrome, Safari 対応 */
-  display: none;
+  &::-webkit-scrollbar {
+    /* Chrome, Safari 対応 */
+    display: none;
+  }
+  @media screen and(max-width: 480px) {
+    width: 80%;
+    height: 400px;
+    margin: 0 auto;
+    margin-bottom: 100px;
+  }
 }
 .mainWrap {
   position: relative;
@@ -203,15 +261,17 @@ main {
   display: flex;
   background: #e0e6ec;
   box-shadow: 7px 7px 14px #bec4c9, -7px -7px 14px #ffffff;
+  @media screen and (max-width: 480px) {
+    position: relative;
+    width: 80%;
+    margin-top: 27px;
+    margin-left: 5px;
+  }
 }
-.mainText {
-  font-size: 16px;
-}
-.mainDelate {
+.mainDelete {
   position: absolute;
-  top: 18px;
+  top: 19px;
   left: 390px;
-  background-color: transparent;
   border: none;
   cursor: pointer;
   outline: none;
@@ -221,119 +281,56 @@ main {
   background: #e0e6ec;
   box-shadow: 7px 7px 14px #bec4c9, -7px -7px 14px #ffffff;
   border-radius: 50%;
-}
-.garbege {
-  color: #2928f5;
-  color: #19189d;
-  color: #141471;
-  color: #2928f5;
-  color: #686b9f;
-  color: rgb(82, 81, 81);
-  font-size: 20px;
+  .garbage {
+    color: rgb(82, 81, 81);
+    font-size: 20px;
+  }
+  @media screen and(max-width:480px) {
+    left: 0px;
+    margin-left: 80%;
+  }
 }
 input[type="checkbox"] {
   display: none;
-}
-input[type="checkbox"] + label {
-  display: block;
-  margin-left: 28px;
-  font: 18px/20px "Open Sans", Arial, sans-serif;
-  color: rgb(82, 81, 81);
-  font-family: "Noto Serif JP", serif;
-  font-family: "Noto Sans JP", sans-serif;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-}
-input[type="checkbox"] + label:before {
-  content: "";
-  display: block;
-  width: 14px;
-  height: 14px;
-  border: 2px solid #2928f5;
-  position: absolute;
-  left: 20px;
-  top: 21px;
-  opacity: 0.6;
-  -webkit-transition: all 0.12s, border-color 0.08s;
-  transition: all 0.12s, border-color 0.08s;
-}
-input[type="checkbox"].checked + label:before {
-  width: 8px;
-  top: 16px;
-  left: 27px;
-  border-radius: 0;
-  opacity: 1;
-  border-top-color: transparent;
-  border-left-color: transparent;
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
-}
-label:before {
-  position: absolute;
-  top: 10px;
-}
-@media screen and (max-width: 480px) {
-  .hello {
+  & + label {
     display: block;
-    height: 100%;
+    margin-left: 28px;
+    font: 18px/20px "Open Sans", Arial, sans-serif;
+    color: rgb(82, 81, 81);
+    font-family: "Noto Sans JP", sans-serif;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
   }
-  .todoErea {
-    width: 100%;
-  }
-  .textErea {
-    width: 100%;
-    margin-left: 0px;
-  }
-  .mainBox {
-    width: 80%;
-    height: 400px;
-    margin: 0 auto;
-    margin-bottom: 100px;
-  }
-  .mainWrap {
-    position: relative;
-    width: 80%;
-    margin-top: 27px;
-    margin-left: 5px;
-    border-radius: 20px;
-    padding: 20px 30px;
-    display: flex;
-    background: #e0e6ec;
-    box-shadow: 7px 7px 14px #bec4c9, -7px -7px 14px #ffffff;
-  }
-  .textInput[data-v-469af010] {
-    position: relative;
-    width: 100%;
-  }
-  input[type="text"][data-v-469af010] {
-    position: absolute;
-    top: 8px;
-    left: 0;
-    width: 100%;
-    margin-top: 10px;
-    box-sizing: border-box;
-  }
-  #addButton[data-v-469af010] {
-    position: absolute;
-    top: 88px;
-    left: 100px;
-    padding: 10px 100px;
-  }
-  input[type="checkbox"] + label[data-v-469af010] {
+  & + label:before {
+    content: "";
     display: block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid #2928f5;
+    position: absolute;
+    left: 20px;
+    top: 22px;
+    opacity: 0.6;
+    -webkit-transition: all 0.12s, border-color 0.08s;
+    transition: all 0.12s, border-color 0.08s;
+  }
+  @media screen and(max-width: 480px) {
+    display: none;
     margin-left: 28px;
     font: 15px/20px "Open Sans", Arial, sans-serif;
   }
-  input[type="text"] + label[data-v-469af010] {
-    position: absolute;
-    top: 15px;
-    left: 0;
-  }
-  .mainDelate {
-    left: 0px;
-    margin-left: 80%;
+  &.checked + label:before {
+    width: 8px;
+    top: 16px;
+    left: 27px;
+    border-radius: 0;
+    opacity: 1;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
   }
 }
 </style>
