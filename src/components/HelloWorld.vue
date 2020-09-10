@@ -5,12 +5,12 @@
         <div class="textInput">
           <input
             type="text"
-            id="input1"
+            id="new-input"
             v-model="newTodo"
             @keypress.enter="onEnterPress"
             placeholder="Please enter the text !!"
           />
-          <label for="input1">To Do text</label>
+          <label for="new-input">To Do text</label>
           <button @click="add" id="addButton">Add</button>
         </div>
       </div>
@@ -30,13 +30,7 @@
             :for="'todo-'+todo.id"
             class="mainText"
           >{{todo.name}}</label>
-          <input
-            type="text"
-            v-else
-            id="input2"
-            v-model="todo.name"
-            @blur="updateName(todo.id,todo.name)"
-          />
+          <input type="text" v-else v-model="todo.name" @blur="updateName(todo.id,todo.name)" />
           <button @click="() => remove(todo.id)" class="mainDelete">
             <font-awesome-icon :icon="['far', 'trash-alt']" class="garbage" />
           </button>
@@ -104,7 +98,7 @@ export default {
       this.add();
       $("#addButton").addClass("active");
       setTimeout(() => $("#addButton").removeClass("active"), 100);
-      $("#input1").blur();
+      $("#new-input").blur();
     },
     updateName(id) {
       if (this.todo.name !== "") {
@@ -122,11 +116,6 @@ export default {
     },
   },
 };
-$(function () {
-  $("#input2").blur(function () {
-    this.todo.edit = !this.todo.edit;
-  });
-});
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
