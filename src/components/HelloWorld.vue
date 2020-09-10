@@ -30,7 +30,12 @@
             :for="'todo-'+todo.id"
             class="mainText"
           >{{todo.name}}</label>
-          <input type="text" v-else v-model="todo.name" @blur="updateName(todo.id,todo.name)" />
+          <input
+            type="text"
+            v-else
+            v-model="todo.name"
+            @blur="updateName(todo.id,todo.name); (()=>{if(todo.name !=='')todo.edit = !todo.edit})();"
+          />
           <button @click="() => remove(todo.id)" class="mainDelete">
             <font-awesome-icon :icon="['far', 'trash-alt']" class="garbage" />
           </button>
@@ -40,6 +45,7 @@
     <Pomodoro />
   </div>
 </template>
+
 
 <script>
 import $ from "jquery";
@@ -66,7 +72,6 @@ export default {
           value.edit = false;
         });
         this.todos = res.data;
-        console.log(res.data);
       });
     },
     add() {
@@ -100,18 +105,12 @@ export default {
       setTimeout(() => $("#addButton").removeClass("active"), 100);
       $("#new-input").blur();
     },
-    updateName(id) {
-      if (this.todo.name !== "") {
-        axios
-          .patch(process.env.VUE_APP_API_URL + "/api/task/" + id, {
-            key: "name",
-            value: this.todo.name,
-          })
-          .then(() => {
-            this.get();
-          });
-        this.todo1 = "";
-        this.todo.edit = !this.todo.edit;
+    updateName(id, name) {
+      if (name !== "") {
+        axios.patch(process.env.VUE_APP_API_URL + "/api/task/" + id, {
+          key: "name",
+          value: name,
+        });
       }
     },
   },
