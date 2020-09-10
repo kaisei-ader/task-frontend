@@ -6,7 +6,7 @@
           <input
             type="text"
             id="input1"
-            v-model="todo"
+            v-model="newTodo"
             @keypress.enter="onEnterPress"
             placeholder="Please enter the text !!"
           />
@@ -24,10 +24,19 @@
             :class="{'checked':todo.is_finished}"
           />
           <label
+            v-if="!todo.edit"
+            @dblclick="() => todo.edit = !todo.edit"
             :class="{'finish':todo.is_finished}"
             :for="'todo-'+todo.id"
             class="mainText"
           >{{todo.name}}</label>
+          <input
+            type="text"
+            v-else
+            id="input2"
+            v-model="todo.name"
+            @blur="updateName(todo.id,todo.name)"
+          />
           <button @click="() => remove(todo.id)" class="mainDelete">
             <font-awesome-icon :icon="['far', 'trash-alt']" class="garbage" />
           </button>
@@ -49,9 +58,8 @@ export default {
   },
   data() {
     return {
-      todo: "",
+      newTodo: "",
       todos: [],
-      addButton: "addButton",
     };
   },
   created() {
@@ -59,19 +67,24 @@ export default {
   },
   methods: {
     get() {
-      console.log(process.env);
       axios.get(process.env.VUE_APP_API_URL + "/api/task").then((res) => {
+        res.data.map((value) => {
+          value.edit = false;
+        });
         this.todos = res.data;
+        console.log(res.data);
       });
     },
     add() {
-      if (this.todo !== "") {
+      if (this.newTodo !== "") {
         axios
-          .post(process.env.VUE_APP_API_URL + "/api/task", { name: this.todo })
+          .post(process.env.VUE_APP_API_URL + "/api/task", {
+            name: this.newTodo,
+          })
           .then(() => {
             this.get();
           });
-        this.todo = "";
+        this.newTodo = "";
       }
     },
     remove(id) {
@@ -93,8 +106,27 @@ export default {
       setTimeout(() => $("#addButton").removeClass("active"), 100);
       $("#input1").blur();
     },
+    updateName(id) {
+      if (this.todo.name !== "") {
+        axios
+          .patch(process.env.VUE_APP_API_URL + "/api/task/" + id, {
+            key: "name",
+            value: this.todo.name,
+          })
+          .then(() => {
+            this.get();
+          });
+        this.todo1 = "";
+        this.todo.edit = !this.todo.edit;
+      }
+    },
   },
 };
+$(function () {
+  $("#input2").blur(function () {
+    this.todo.edit = !this.todo.edit;
+  });
+});
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -145,7 +177,7 @@ export default {
 .textInput {
   position: relative;
 }
-input[type="text"] {
+.textInput [type="text"] {
   position: absolute;
   top: 8px;
   left: 3%;
@@ -203,6 +235,9 @@ input[type="text"] {
     margin-top: 10px;
     box-sizing: border-box;
   }
+}
+.mainWrap .input[type="text"] {
+  display: block;
 }
 #addButton {
   position: absolute;
