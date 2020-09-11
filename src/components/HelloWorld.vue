@@ -35,6 +35,7 @@
             v-else
             v-model="todo.name"
             @blur="updateName(todo.id,todo.name); (()=>{if(todo.name !=='')todo.edit = !todo.edit})();"
+            class="update-name-text"
           />
           <button @click="() => remove(todo.id)" class="mainDelete">
             <font-awesome-icon :icon="['far', 'trash-alt']" class="garbage" />
@@ -224,8 +225,14 @@ export default {
     box-sizing: border-box;
   }
 }
-.mainWrap .input[type="text"] {
-  display: block;
+.update-name-text {
+  width: 200px;
+  text-shadow: 1px 1px 1px #fff;
+  box-sizing: border-box;
+  outline: none;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: #e0e6ec;
+  box-shadow: 7px 7px 14px #bec4c9, -7px -7px 14px #ffffff;
 }
 #addButton {
   position: absolute;
