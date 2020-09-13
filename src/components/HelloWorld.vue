@@ -35,7 +35,7 @@
             :ref="'focus-' + todo.id"
             v-show="todo.edit"
             v-model="todo.name"
-            @blur="updateName(todo.id,todo.name); (()=>{if(todo.name !=='')todo.edit = !todo.edit})();"
+            @blur="updateName(todo)"
             class="update-name-text"
           />
           <button @click="() => remove(todo.id)" class="mainDelete">
@@ -108,12 +108,15 @@ export default {
       $("#new-input").blur();
     },
 
-    updateName(id, name) {
+    updateName(todo) {
       if (name !== "") {
-        axios.patch(process.env.VUE_APP_API_URL + "/api/task/" + id, {
+        axios.patch(process.env.VUE_APP_API_URL + "/api/task/" + todo.id, {
           key: "name",
           value: name,
         });
+      }
+      if (todo.name !== "") {
+        todo.edit = !todo.edit;
       }
     },
     refbank(todo) {
@@ -236,9 +239,10 @@ export default {
   text-shadow: 1px 1px 1px #fff;
   box-sizing: border-box;
   outline: none;
-  border: 1px solid rgba(255, 255, 255, 0.6);
+  border: none;
+  color: rgb(82, 81, 81);
+  font: 18px/20px "Noto Sans JP", sans-serif;
   background: #e0e6ec;
-  box-shadow: 7px 7px 14px #bec4c9, -7px -7px 14px #ffffff;
 }
 #addButton {
   position: absolute;
