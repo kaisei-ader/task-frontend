@@ -143,7 +143,7 @@ export default {
     start() {
       this.timerObj = setInterval(() => {
         this.count();
-      }, 10);
+      }, 1000);
       this.timerOn = true;
     },
     stop() {
