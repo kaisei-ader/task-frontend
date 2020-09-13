@@ -24,15 +24,16 @@
             :class="{'checked':todo.is_finished}"
           />
           <label
-            v-if="!todo.edit"
-            @dblclick="() => todo.edit = !todo.edit"
+            v-show="!todo.edit"
+            @dblclick="refbank(todo)"
             :class="{'finish':todo.is_finished}"
             :for="'todo-'+todo.id"
             class="mainText"
           >{{todo.name}}</label>
           <input
             type="text"
-            v-else
+            :ref="'focus-' + todo.id"
+            v-show="todo.edit"
             v-model="todo.name"
             @blur="updateName(todo.id,todo.name); (()=>{if(todo.name !=='')todo.edit = !todo.edit})();"
             class="update-name-text"
@@ -106,6 +107,7 @@ export default {
       setTimeout(() => $("#addButton").removeClass("active"), 100);
       $("#new-input").blur();
     },
+
     updateName(id, name) {
       if (name !== "") {
         axios.patch(process.env.VUE_APP_API_URL + "/api/task/" + id, {
@@ -113,6 +115,10 @@ export default {
           value: name,
         });
       }
+    },
+    refbank(todo) {
+      todo.edit = !todo.edit;
+      this.$nextTick(() => this.$refs["focus-" + todo.id][0].focus());
     },
   },
 };

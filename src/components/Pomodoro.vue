@@ -20,7 +20,7 @@
       </svg>
     </div>
     <div class="timeButtonWrap">
-      <button class="pomodoro-button">
+      <button class="pomodoro-button" @click="openModal">
         <font-awesome-icon :icon="['fas', 'question-circle']" class="pomodoro-button-icon" />
       </button>
       <button class="pomodoro-button" v-if="!timerOn" @click="start" data-b="start">
@@ -33,6 +33,64 @@
         <font-awesome-icon :icon="['fas', 'redo-alt']" class="pomodoro-button-icon" />
       </button>
     </div>
+    <transition>
+      <div id="overlay" v-show="showModal">
+        <div id="modal-wrap">
+          <div class="modal-img">
+            <img src="@/assets/todo.jpg" class="todo-img" />
+          </div>
+          <div class="modal-text">
+            <table border="1">
+              <tr>
+                <th>Nomber</th>
+                <th>Explain</th>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>7</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>8</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>9</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>10</td>
+                <td></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <button @click="closeModal">Close</button>
+      </div>
+    </transition>
   </section>
 </template>
 
@@ -47,6 +105,7 @@ export default {
       work: true,
       min: 25,
       sec: 0,
+      showModal: false,
     };
   },
   computed: {
@@ -84,7 +143,7 @@ export default {
     start() {
       this.timerObj = setInterval(() => {
         this.count();
-      }, 1000);
+      }, 10);
       this.timerOn = true;
     },
     stop() {
@@ -101,6 +160,12 @@ export default {
         565 * (1 - (this.min * 60 + this.sec) / (this.work ? 1500 : 300)) +
           " 565"
       );
+    },
+    openModal() {
+      this.showModal = true;
+    },
+    closeModal() {
+      this.showModal = false;
     },
   },
 };
@@ -231,5 +296,57 @@ export default {
       }
     }
   }
+}
+#overlay {
+  z-index: 999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(82, 81, 81, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  #modal-wrap {
+    z-index: 9999;
+    width: 80%;
+    height: 80%;
+    padding: 2.5em;
+    background: #e0e6ec;
+    border-radius: 30px;
+    box-shadow: 7px 7px 14px #bec4c9, -7px -7px 14px #ffffff;
+    display: flex;
+    .modal-img {
+      width: 90%;
+      margin-right: 20px;
+      .todo-img {
+        width: 100%;
+        height: 90%;
+        background: #e0e6ec;
+        box-shadow: 7px 7px 14px #bec4c9, -7px -7px 14px #ffffff;
+      }
+    }
+    .modal-text {
+      background: #e0e6ec;
+      border-radius: 30px;
+      box-shadow: 7px 7px 14px #bec4c9, -7px -7px 14px #ffffff;
+      width: 30%;
+      height: 90%;
+      ul {
+      }
+      li {
+        width: 90px;
+      }
+    }
+  }
+}
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s;
+}
+.v-enter,
+.v-leave-to {
+  opacity: 0;
 }
 </style>
