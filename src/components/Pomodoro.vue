@@ -183,6 +183,7 @@ export default {
     width: 100%;
   }
 }
+
 .time-box {
   position: relative;
   width: 300px;
@@ -239,6 +240,7 @@ export default {
       font-size: 28px;
     }
   }
+
   .svganime {
     position: absolute;
     left: -3px;
@@ -252,6 +254,7 @@ export default {
     stroke-dasharray: 0 723;
   }
 }
+
 .time-button-wrap {
   display: flex;
   justify-content: space-around;
@@ -297,6 +300,7 @@ export default {
     }
   }
 }
+
 #overlay {
   z-index: 999;
   position: fixed;
@@ -308,6 +312,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+
   #modal-wrap {
     z-index: 9999;
     width: 80%;
@@ -317,9 +322,11 @@ export default {
     border-radius: 30px;
     box-shadow: 7px 7px 14px #bec4c9, -7px -7px 14px #ffffff;
     display: flex;
+
     .modal-img {
       width: 90%;
       margin-right: 20px;
+
       .todo-img {
         width: 100%;
         height: 90%;
@@ -327,24 +334,22 @@ export default {
         box-shadow: 7px 7px 14px #bec4c9, -7px -7px 14px #ffffff;
       }
     }
+
     .modal-text {
       background: #e0e6ec;
       border-radius: 30px;
       box-shadow: 7px 7px 14px #bec4c9, -7px -7px 14px #ffffff;
       width: 30%;
       height: 90%;
-      ul {
-      }
-      li {
-        width: 90px;
-      }
     }
   }
 }
+
 .v-enter-active,
 .v-leave-active {
   transition: opacity 0.5s;
 }
+
 .v-enter,
 .v-leave-to {
   opacity: 0;

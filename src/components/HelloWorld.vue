@@ -93,14 +93,12 @@ export default {
         this.get();
       });
     },
-
     updateStatus(id, isFinished) {
       axios.patch(process.env.VUE_APP_API_URL + "/api/task/" + id, {
         key: "is_finished",
         value: isFinished,
       });
     },
-
     onEnterPress() {
       this.add();
       $("#add-button").addClass("active");
@@ -169,6 +167,7 @@ export default {
   height: 150px;
   margin-left: 20%;
   border-radius: 59px;
+
   @media screen and(max-width: 480px) {
     width: 100%;
     margin-left: 0;
@@ -194,11 +193,13 @@ export default {
   box-shadow: 7px 7px 14px #bec4c9, -7px -7px 14px #ffffff;
   padding: 10px 10px 10px 130px;
   transition: all 0.1s ease-out;
+
   &:focus {
     color: rgb(82, 81, 81);
     padding: 10px;
     transition: all 0.3s ease-out;
   }
+
   & + label {
     position: absolute;
     top: 35px;
@@ -216,17 +217,20 @@ export default {
     transform: translateZ(0) translateX(0);
     transition: all 0.3s ease-in;
     transition-delay: 0.2s;
+
     @media screen and(max-width:480px) {
       position: absolute;
       top: 15px;
       left: 0;
     }
   }
+
   &:focus + label {
     transform: translateY(-120%) translateX(0%);
     border-radius: 59px;
     transition: all 0.1s ease-out;
   }
+
   @media screen and(max-width: 480px) {
     position: absolute;
     top: 8px;
@@ -236,6 +240,7 @@ export default {
     box-sizing: border-box;
   }
 }
+
 .update-name-text {
   width: 100%;
   text-shadow: 1px 1px 1px #fff;
@@ -246,6 +251,7 @@ export default {
   font: 18px/20px "Noto Sans JP", sans-serif;
   background: #e0e6ec;
 }
+
 #add-button {
   position: absolute;
   top: 101px;
@@ -259,14 +265,17 @@ export default {
   box-shadow: 7px 7px 14px #bec4c9, -7px -7px 14px #ffffff;
   cursor: pointer;
   transition: all 0.1s;
+
   &:focus {
     outline: 0;
   }
+
   &:active,
   &.active {
     outline: 0;
     box-shadow: none;
   }
+
   @media screen and(max-width: 480px) {
     position: absolute;
     top: 88px;
@@ -274,6 +283,7 @@ export default {
     padding: 10px 100px;
   }
 }
+
 .main-box-wrap {
   width: 750px;
   height: 370px;
@@ -283,6 +293,7 @@ export default {
   border-radius: 30px;
   -ms-overflow-style: none; /* IE, Edge 対応 */
   scrollbar-width: none; /* Firefox 対応 */
+
   .main-box-content {
     position: relative;
     width: 580px;
@@ -293,6 +304,7 @@ export default {
     display: flex;
     background: #e0e6ec;
     box-shadow: 7px 7px 14px #bec4c9, -7px -7px 14px #ffffff;
+
     @media screen and (max-width: 480px) {
       position: relative;
       width: 90%;
@@ -303,16 +315,19 @@ export default {
       margin-bottom: 10px;
     }
   }
+
   &::-webkit-scrollbar {
     /* Chrome, Safari 対応 */
     display: none;
   }
+
   @media screen and(max-width: 480px) {
     width: 80%;
     height: 400px;
     margin: 0 auto;
     margin-bottom: 100px;
   }
+
   .mainDelete {
     position: absolute;
     top: 19px;
@@ -326,10 +341,12 @@ export default {
     background: #e0e6ec;
     box-shadow: 7px 7px 14px #bec4c9, -7px -7px 14px #ffffff;
     border-radius: 50%;
+
     .garbage {
       color: rgb(82, 81, 81);
       font-size: 20px;
     }
+
     @media screen and(max-width:480px) {
       left: 0px;
       margin-left: 85%;
@@ -339,6 +356,7 @@ export default {
 
 input[type="checkbox"] {
   display: none;
+
   & + label {
     display: block;
     margin-left: 28px;
@@ -350,6 +368,7 @@ input[type="checkbox"] {
     -moz-user-select: none;
     -ms-user-select: none;
   }
+
   & + label:before {
     content: "";
     display: block;
@@ -363,11 +382,13 @@ input[type="checkbox"] {
     -webkit-transition: all 0.12s, border-color 0.08s;
     transition: all 0.12s, border-color 0.08s;
   }
+
   @media screen and(max-width: 480px) {
     display: none;
     margin-left: 28px;
     font: 15px/20px "Open Sans", Arial, sans-serif;
   }
+
   &.checked + label:before {
     width: 8px;
     top: 16px;
