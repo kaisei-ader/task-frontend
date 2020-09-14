@@ -1,6 +1,6 @@
 <template>
   <section class="pomodoro">
-    <div class="timebox">
+    <div class="time-box">
       <div class="inbox">
         <p>
           {{ formatTime }}
@@ -19,7 +19,7 @@
         <circle cx="100" cy="100" r="90" />
       </svg>
     </div>
-    <div class="timeButtonWrap">
+    <div class="time-button-wrap">
       <button class="pomodoro-button" @click="openModal">
         <font-awesome-icon :icon="['fas', 'question-circle']" class="pomodoro-button-icon" />
       </button>
@@ -183,7 +183,7 @@ export default {
     width: 100%;
   }
 }
-.timebox {
+.time-box {
   position: relative;
   width: 300px;
   height: 300px;
@@ -252,7 +252,7 @@ export default {
     stroke-dasharray: 0 723;
   }
 }
-.timeButtonWrap {
+.time-button-wrap {
   display: flex;
   justify-content: space-around;
   width: 300px;

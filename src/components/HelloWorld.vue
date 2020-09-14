@@ -1,8 +1,8 @@
 <template>
   <div class="hello">
-    <div class="todoArea">
-      <div class="textArea">
-        <div class="textInput">
+    <div class="todo-area">
+      <div class="text-area">
+        <div class="text-new-input">
           <input
             type="text"
             id="new-input"
@@ -11,11 +11,11 @@
             placeholder="Please enter the text !!"
           />
           <label for="new-input">To Do text</label>
-          <button @click="add" id="addButton">Add</button>
+          <button @click="add" id="add-button">Add</button>
         </div>
       </div>
-      <div class="mainBox">
-        <div v-for="todo in todos" :key="todo.id" class="mainWrap">
+      <div class="main-box-wrap">
+        <div v-for="todo in todos" :key="todo.id" class="main-box-content">
           <input
             type="checkbox"
             :id="'todo-'+todo.id"
@@ -28,7 +28,6 @@
             @dblclick="refbank(todo)"
             :class="{'finish':todo.is_finished}"
             :for="'todo-'+todo.id"
-            class="mainText"
           >{{todo.name}}</label>
           <input
             type="text"
@@ -36,6 +35,7 @@
             v-show="todo.edit"
             v-model="todo.name"
             @blur="updateName(todo)"
+            @keypress.enter="updateName2(todo)"
             class="update-name-text"
           />
           <button @click="() => remove(todo.id)" class="mainDelete">
@@ -103,25 +103,27 @@ export default {
 
     onEnterPress() {
       this.add();
-      $("#addButton").addClass("active");
-      setTimeout(() => $("#addButton").removeClass("active"), 100);
+      $("#add-button").addClass("active");
+      setTimeout(() => $("#add-button").removeClass("active"), 100);
       $("#new-input").blur();
     },
-
+    refbank(todo) {
+      todo.edit = !todo.edit;
+      this.$nextTick(() => this.$refs["focus-" + todo.id][0].focus());
+    },
     updateName(todo) {
-      if (name !== "") {
+      if (todo.name !== "") {
         axios.patch(process.env.VUE_APP_API_URL + "/api/task/" + todo.id, {
           key: "name",
-          value: name,
+          value: todo.name,
         });
       }
       if (todo.name !== "") {
         todo.edit = !todo.edit;
       }
     },
-    refbank(todo) {
+    updateName2(todo) {
       todo.edit = !todo.edit;
-      this.$nextTick(() => this.$refs["focus-" + todo.id][0].focus());
     },
   },
 };
@@ -150,7 +152,7 @@ export default {
   }
 }
 
-.todoArea {
+.todo-area {
   width: 70%;
 
   @media screen and(max-width: 480px) {
@@ -162,7 +164,7 @@ export default {
   text-decoration: line-through;
 }
 
-.textArea {
+.text-area {
   width: 70%;
   height: 150px;
   margin-left: 20%;
@@ -172,10 +174,10 @@ export default {
     margin-left: 0;
   }
 }
-.textInput {
+.text-new-input {
   position: relative;
 }
-.textInput [type="text"] {
+.text-new-input [type="text"] {
   position: absolute;
   top: 8px;
   left: 3%;
@@ -235,7 +237,7 @@ export default {
   }
 }
 .update-name-text {
-  width: 200px;
+  width: 100%;
   text-shadow: 1px 1px 1px #fff;
   box-sizing: border-box;
   outline: none;
@@ -244,7 +246,7 @@ export default {
   font: 18px/20px "Noto Sans JP", sans-serif;
   background: #e0e6ec;
 }
-#addButton {
+#add-button {
   position: absolute;
   top: 101px;
   left: 30%;
@@ -272,7 +274,7 @@ export default {
     padding: 10px 100px;
   }
 }
-.mainBox {
+.main-box-wrap {
   width: 750px;
   height: 370px;
   margin-left: 9%;
@@ -292,7 +294,7 @@ export default {
     margin-bottom: 100px;
   }
 }
-.mainWrap {
+.main-box-content {
   position: relative;
   width: 580px;
   margin-top: 20px;
