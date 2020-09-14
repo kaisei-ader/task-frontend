@@ -283,6 +283,26 @@ export default {
   border-radius: 30px;
   -ms-overflow-style: none; /* IE, Edge 対応 */
   scrollbar-width: none; /* Firefox 対応 */
+  .main-box-content {
+    position: relative;
+    width: 580px;
+    margin-top: 20px;
+    margin-left: 13%;
+    border-radius: 20px;
+    padding: 20px 30px;
+    display: flex;
+    background: #e0e6ec;
+    box-shadow: 7px 7px 14px #bec4c9, -7px -7px 14px #ffffff;
+    @media screen and (max-width: 480px) {
+      position: relative;
+      width: 90%;
+      box-sizing: border-box;
+      margin-top: 27px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 10px;
+    }
+  }
   &::-webkit-scrollbar {
     /* Chrome, Safari 対応 */
     display: none;
@@ -293,46 +313,30 @@ export default {
     margin: 0 auto;
     margin-bottom: 100px;
   }
-}
-.main-box-content {
-  position: relative;
-  width: 580px;
-  margin-top: 20px;
-  margin-left: 13%;
-  border-radius: 20px;
-  padding: 20px 30px;
-  display: flex;
-  background: #e0e6ec;
-  box-shadow: 7px 7px 14px #bec4c9, -7px -7px 14px #ffffff;
-  @media screen and (max-width: 480px) {
-    position: relative;
-    width: 80%;
-    margin-top: 27px;
-    margin-left: 5px;
+  .mainDelete {
+    position: absolute;
+    top: 19px;
+    left: 390px;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+    appearance: none;
+    margin-left: 200px;
+    background: #e0e6ec;
+    box-shadow: 7px 7px 14px #bec4c9, -7px -7px 14px #ffffff;
+    border-radius: 50%;
+    .garbage {
+      color: rgb(82, 81, 81);
+      font-size: 20px;
+    }
+    @media screen and(max-width:480px) {
+      left: 0px;
+      margin-left: 85%;
+    }
   }
 }
-.mainDelete {
-  position: absolute;
-  top: 19px;
-  left: 390px;
-  border: none;
-  cursor: pointer;
-  outline: none;
-  padding: 0;
-  appearance: none;
-  margin-left: 200px;
-  background: #e0e6ec;
-  box-shadow: 7px 7px 14px #bec4c9, -7px -7px 14px #ffffff;
-  border-radius: 50%;
-  .garbage {
-    color: rgb(82, 81, 81);
-    font-size: 20px;
-  }
-  @media screen and(max-width:480px) {
-    left: 0px;
-    margin-left: 80%;
-  }
-}
+
 input[type="checkbox"] {
   display: none;
   & + label {
