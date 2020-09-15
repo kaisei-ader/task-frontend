@@ -8,7 +8,7 @@
             id="new-input"
             v-model="newTodo"
             @keypress.enter="onEnterPress"
-            placeholder="Please enter the text !!"
+            placeholder="Please enter the text!!"
           />
           <label for="new-input">To Do text</label>
           <button @click="add" id="add-button">Add</button>
@@ -23,11 +23,11 @@
             v-model="todo.is_finished"
             :class="{'checked':todo.is_finished}"
           />
+          <label :for="'todo-'+todo.id"></label>
           <p
-            v-show="!todo.edit"
             @dblclick="refbank(todo)"
+            v-show="!todo.edit"
             :class="{'finish':todo.is_finished}"
-            :for="'todo-'+todo.id"
           >{{todo.name}}</p>
           <input
             type="text"
@@ -314,6 +314,12 @@ export default {
       margin-right: auto;
       margin-bottom: 10px;
     }
+    p {
+      font: 18px/20px "Open Sans", Arial, sans-serif;
+      color: rgb(82, 81, 81);
+      font-family: "Noto Sans JP", sans-serif;
+      cursor: pointer;
+    }
   }
 
   &::-webkit-scrollbar {
@@ -391,7 +397,7 @@ input[type="checkbox"] {
 
   &.checked + label:before {
     width: 8px;
-    top: 16px;
+    top: 17px;
     left: 27px;
     border-radius: 0;
     opacity: 1;
