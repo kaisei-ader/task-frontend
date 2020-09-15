@@ -23,12 +23,12 @@
             v-model="todo.is_finished"
             :class="{'checked':todo.is_finished}"
           />
-          <label
+          <p
             v-show="!todo.edit"
             @dblclick="refbank(todo)"
             :class="{'finish':todo.is_finished}"
             :for="'todo-'+todo.id"
-          >{{todo.name}}</label>
+          >{{todo.name}}</p>
           <input
             type="text"
             :ref="'focus-' + todo.id"
