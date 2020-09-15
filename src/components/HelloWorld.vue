@@ -28,6 +28,7 @@
             @dblclick="refbank(todo)"
             v-show="!todo.edit"
             :class="{'finish':todo.is_finished}"
+            :for="'todo-'+todo.id"
           >{{todo.name}}</p>
           <input
             type="text"
@@ -35,7 +36,6 @@
             v-show="todo.edit"
             v-model="todo.name"
             @blur="updateName(todo)"
-            @keypress.enter="updateName2(todo)"
             class="update-name-text"
           />
           <button @click="() => remove(todo.id)" class="mainDelete">
@@ -119,9 +119,6 @@ export default {
       if (todo.name !== "") {
         todo.edit = !todo.edit;
       }
-    },
-    updateName2(todo) {
-      todo.edit = !todo.edit;
     },
   },
 };
