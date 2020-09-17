@@ -40,55 +40,55 @@
             <img src="@/assets/todo.jpg" class="todo-img" />
           </div>
           <div class="modal-text">
-            <table border="1">
+            <table>
               <tr>
-                <th>Nomber</th>
-                <th>Explain</th>
+                <th class="thr">No.</th>
+                <th class="ths">Explain</th>
               </tr>
               <tr>
-                <td>1</td>
-                <td></td>
+                <td class="thr">1</td>
+                <td class="ths">新規タスクを入力できます</td>
               </tr>
               <tr>
-                <td>2</td>
-                <td></td>
+                <td class="thr">2</td>
+                <td class="ths">タスクを管理BOXに挿入できます</td>
               </tr>
               <tr>
-                <td>3</td>
-                <td></td>
+                <td class="thr">3</td>
+                <td class="ths">ダブルクリックで直接編集できます</td>
               </tr>
               <tr>
-                <td>4</td>
-                <td></td>
+                <td class="thr">4</td>
+                <td class="ths">タスク完了時にチェックできます</td>
               </tr>
               <tr>
-                <td>5</td>
-                <td></td>
+                <td class="thr">5</td>
+                <td class="ths">タスクを管理BOXから削除できます</td>
               </tr>
               <tr>
-                <td>6</td>
-                <td></td>
+                <td class="thr">6</td>
+                <td class="ths">ゲージがタイマーと比例進行します</td>
               </tr>
               <tr>
-                <td>7</td>
-                <td></td>
+                <td class="thr">7</td>
+                <td class="ths">集中モードと休憩モードに分かれます</td>
               </tr>
               <tr>
-                <td>8</td>
-                <td></td>
+                <td class="thr">8</td>
+                <td class="ths">アプリケーションの説明書を表示します</td>
               </tr>
               <tr>
-                <td>9</td>
-                <td></td>
+                <td class="thr">9</td>
+                <td class="ths">タイマーを開始、停止できます</td>
               </tr>
               <tr>
-                <td>10</td>
-                <td></td>
+                <td class="thr">10</td>
+                <td class="ths">タイマーをリセットできます</td>
               </tr>
             </table>
           </div>
         </div>
-        <button @click="closeModal">Close</button>
+        <button @click="closeModal" class="close-button">Close</button>
       </div>
     </transition>
   </section>
@@ -313,10 +313,38 @@ export default {
   align-items: center;
   justify-content: center;
 
+  button {
+    position: absolute;
+    z-index: 99999;
+    top: 88%;
+    left: 40%;
+    padding: 10px 100px;
+    border-radius: 20px;
+    border: none;
+    color: rgb(82, 81, 81);
+    font-weight: 600;
+    background: #e0e6ec;
+    box-sizing: border-box;
+    box-shadow: 7px 7px 14px #bec4c9, -7px -7px 14px #ffffff;
+    cursor: pointer;
+    transition: all 0.1s;
+
+    &:focus {
+      outline: 0;
+    }
+
+    &:active,
+    &.active {
+      outline: 0;
+      box-shadow: none;
+    }
+  }
   #modal-wrap {
+    position: relative;
     z-index: 9999;
-    width: 80%;
+    width: 90%;
     height: 80%;
+    margin: 0 auto;
     padding: 2.5em;
     background: #e0e6ec;
     border-radius: 30px;
@@ -329,22 +357,48 @@ export default {
 
       .todo-img {
         width: 100%;
-        height: 90%;
+        height: 95%;
         background: #e0e6ec;
         box-shadow: 7px 7px 14px #bec4c9, -7px -7px 14px #ffffff;
       }
     }
 
     .modal-text {
-      background: #e0e6ec;
-      border-radius: 30px;
-      box-shadow: 7px 7px 14px #bec4c9, -7px -7px 14px #ffffff;
       width: 30%;
       height: 90%;
+
+      table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+      }
+
+      table th:first-child {
+        border-radius: 5px 0 0 0;
+      }
+      table th:last-child {
+        border-radius: 0 5px 0 0;
+      }
+      td {
+        font-size: 14px;
+        color: rgb(82, 81, 81);
+      }
+      .ths {
+        text-align: center;
+        border-bottom: 1px solid #a8b7c5;
+        box-shadow: 0px -3px 5px 1px #eee inset;
+        width: 90%;
+        padding: 12px 0;
+      }
+      .thr {
+        text-align-last: center;
+        border-bottom: 1px solid #a8b7c5;
+        box-shadow: 0px -3px 5px 1px #eee inset;
+        width: 12%;
+      }
     }
   }
 }
-
 .v-enter-active,
 .v-leave-active {
   transition: opacity 0.5s;
