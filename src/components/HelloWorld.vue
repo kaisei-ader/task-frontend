@@ -199,10 +199,12 @@ export default {
 
   & + label {
     position: absolute;
-    top: 35px;
+    top: 37px;
     left: 3%;
-    height: 40px;
-    line-height: 40px;
+    box-sizing: border-box;
+    height: 41px;
+    display: flex;
+    align-items: center;
     border-radius: 59px;
     border: 1px double #eee;
     color: #484b57;
@@ -214,10 +216,9 @@ export default {
     transform: translateZ(0) translateX(0);
     transition: all 0.3s ease-in;
     transition-delay: 0.2s;
-
     @media screen and(max-width:480px) {
       position: absolute;
-      top: 15px;
+      top: 17px;
       left: 0;
     }
   }
