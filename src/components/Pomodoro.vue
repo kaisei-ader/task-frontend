@@ -87,6 +87,20 @@
               </tr>
             </table>
           </div>
+          <div class="model-text-responsive">
+            <ol class="model-text-ul">
+              <li>新規タスクを入力できます</li>
+              <li>タスクを管理BOXに挿入できます</li>
+              <li>ダブルクリックで直接編集できます</li>
+              <li>タスク完了時にチェックできます</li>
+              <li>タスクを管理BOXから削除できます</li>
+              <li>ゲージがタイマーと比例進行します</li>
+              <li>集中モードと休憩モードに分かれます</li>
+              <li>アプリケーションの説明書を表示します</li>
+              <li>タイマーを開始、停止できます</li>
+              <li>タイマーをリセットできます</li>
+            </ol>
+          </div>
         </div>
         <button @click="closeModal" class="close-button">Close</button>
       </div>
@@ -329,6 +343,11 @@ export default {
     cursor: pointer;
     transition: all 0.1s;
 
+    @media screen and(max-width: 480px) {
+      top: 85%;
+      left: 23%;
+    }
+
     &:focus {
       outline: 0;
     }
@@ -351,10 +370,19 @@ export default {
     box-shadow: 7px 7px 14px #bec4c9, -7px -7px 14px #ffffff;
     display: flex;
 
+    @media screen and(max-width: 480px) {
+      padding: 1.5rem;
+      display: block;
+    }
+
     .modal-img {
       width: 90%;
       margin-right: 20px;
 
+      @media screen and(max-width: 480px) {
+        width: 100%;
+        margin: 0 auto;
+      }
       .todo-img {
         width: 100%;
         height: 95%;
@@ -366,6 +394,10 @@ export default {
     .modal-text {
       width: 30%;
       height: 90%;
+
+      @media screen and(max-width: 480px) {
+        display: none;
+      }
 
       table {
         width: 100%;
@@ -395,6 +427,22 @@ export default {
         border-bottom: 1px solid #a8b7c5;
         box-shadow: 0px -3px 5px 1px #eee inset;
         width: 12%;
+      }
+    }
+    .model-text-responsive {
+      display: none;
+      .model-text-ul {
+        color: rgba(82, 81, 81, 1);
+        width: 90%;
+        text-align: left;
+        margin: 30px auto;
+      }
+      li {
+        margin-left: 12%;
+        margin-bottom: 5px;
+      }
+      @media screen and(max-width: 480px) {
+        display: block;
       }
     }
   }
