@@ -143,7 +143,7 @@ export default {
 
   @media screen and(max-width: 480px) {
     display: block;
-    height: 100%;
+    height: 1400px;
   }
 }
 
