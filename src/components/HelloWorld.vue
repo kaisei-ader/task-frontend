@@ -296,6 +296,7 @@ export default {
     position: relative;
     width: 580px;
     margin-top: 20px;
+    margin-bottom: 20px;
     margin-left: 13%;
     border-radius: 20px;
     padding: 20px 30px;
