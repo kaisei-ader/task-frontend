@@ -298,9 +298,6 @@ export default {
     .pomodoro-button-icon {
       font-size: 50px;
       color: rgb(82, 81, 81);
-      color: #686b9f;
-      color: #2928f5;
-      color: rgb(82, 81, 81);
       font-weight: 800;
       background: #e0e6ec;
       border-radius: 50%;
@@ -310,6 +307,16 @@ export default {
       &:hover {
         color: #2928f5;
         opacity: 0.6;
+        background: #e0e6ec;
+        border-radius: 50%;
+        box-shadow: 7px 7px 14px #bec4c9, -7px -7px 14px #ffffff;
+      }
+      &:active {
+        color: #2928f5;
+        opacity: 0.6;
+        background: #e0e6ec;
+        border-radius: 50%;
+        box-shadow: 7px 7px 14px #bec4c9, -7px -7px 14px #ffffff;
       }
     }
   }
