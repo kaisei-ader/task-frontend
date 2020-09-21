@@ -184,6 +184,7 @@ export default {
   text-shadow: 1px 1px 1px #fff;
   box-sizing: border-box;
   outline: none;
+  color: rgb(82, 81, 81);
   border-radius: 55px;
   border: 1px solid rgba(255, 255, 255, 0.6);
   background: #e0e6ec;
