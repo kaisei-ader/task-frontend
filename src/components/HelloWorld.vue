@@ -18,18 +18,20 @@
         <div v-for="todo in todos" :key="todo.id" class="main-box-content">
           <input
             type="checkbox"
-            :id="'todo-'+todo.id"
-            @change="() =>updateStatus(todo.id,todo.is_finished)"
+            :id="'todo-' + todo.id"
+            @change="() => updateStatus(todo.id, todo.is_finished)"
             v-model="todo.is_finished"
-            :class="{'checked':todo.is_finished}"
+            :class="{ checked: todo.is_finished }"
           />
-          <label :for="'todo-'+todo.id"></label>
+          <label :for="'todo-' + todo.id"></label>
           <p
             @dblclick="refbank(todo)"
             v-show="!todo.edit"
-            :class="{'finish':todo.is_finished}"
-            :for="'todo-'+todo.id"
-          >{{todo.name}}</p>
+            :class="{ finish: todo.is_finished }"
+            :for="'todo-' + todo.id"
+          >
+            {{ todo.name }}
+          </p>
           <input
             type="text"
             :ref="'focus-' + todo.id"
